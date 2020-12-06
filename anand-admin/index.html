@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app" ng-controller="indexController">
 <head>
 <title>Anand Hospitals</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -8,46 +8,60 @@
 <meta content="utf-8" http-equiv="encoding" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="css/login-style.css" rel="stylesheet" type="text/css" />
+<link ng-if="currentStateDetails.auth" href="css/style.css" rel="stylesheet" type="text/css" />
+<link ng-if="!currentStateDetails.auth" href="css/login-style.css" rel="stylesheet" type="text/css" />
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 </head>	
-<body id="loginbg">
+<body id="{{currentStateDetails.alt ? currentStateDetails.alt : currentStateDetails.name}}">
 
-	<div class="wrapper">
-		<div class="login-wrap">
-			<div class="login-box">
-				<img src="images/anandlogo.png" class="img-responsive login-logo">
-				
-				<!--Login Form-->
-				
-					<form class="login-form">
-						<div class="form-group">
-							<div class="icon-addon">
-								<input type="text" required="" onblur="if (this.value == '') {this.value = 'Username';}" onfocus="this.value = '';" value="Username" class="form-control">
-								<label for="username" class="glyphicon glyphicon glyphicon-user"></label>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="icon-addon">
-								<input type="password" required="" onblur="if (this.value == '') {this.value = 'Password';}" onfocus="this.value = '';" value="Password" class="form-control">
-								<label for="password" class="fa fa-key"></label>
-							</div>
-						</div>
-						<button type="submit" class="btn" formaction="listing.html"> Login</button>
-					</form>
-				
-				
-				<div class="copy_login">
-		        	Copyright &copy; 2020. Anand Hospitals<br>All Rights Reserved.
-		        </div>
-			</div>
+	<ui-view ng-if="!currentStateDetails.auth" id='views'></ui-view>
+
+	<div ng-if="currentStateDetails.auth" class="wrapper">
 		
+		<div ng-include="'app/elements/header.html'"></div>
+
+		
+		<!--content-->
+		<div class="container-fluid">
+			<div class="row">
+				<div class="bottom-wrap">
+					
+		            <div ng-include="'app/elements/sidebar.html'"></div>
+					
+					<!--Right Content-->
+					<div class="content-wrap">
+						
+						
+						<ui-view id='views'></ui-view>
+						
+						<div ng-include="'app/elements/footer.html'"></div>
+					</div>
+				
+				</div>
+			</div>
 		</div>
 		
 	</div>	<!-- wrapper -->
+
+	<script type="text/javascript" src="js/jQuery-2.2.0.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="css/select2.min.css"> 
+	<script src="js/select2.min.js"></script>
+	<!-- <script src="js/scripts.js"></script> -->
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-ui-router.min.js"></script>
+	<script src="js/ui-bootstrap-tpls-2.5.0.js"></script>
+
+	<script src="app/app.config.js"></script>
+    <script src="app/shared/http.service.js"></script>
+    <script src="app/shared/api.service.js"></script>
+    <script src="app/index.controller.js"></script>
+    <script src="app/dashboard/dashboard.controller.js"></script>
+    <script src="app/login/login.controller.js"></script>
+    <script src="app/blogs/blogs.controller.js"></script>
 </body>
 
-<script type="text/javascript" src="js/jQuery-2.2.0.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
+
 </html>
