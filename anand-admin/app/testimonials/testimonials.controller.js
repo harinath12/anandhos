@@ -1,14 +1,14 @@
 angular.module('app')
 
-        .controller('blogsController', blogsController);
+        .controller('testimonialsController', testimonialsController);
 
 
 
-blogsController.$inject = ['$scope', '$state', '$rootScope', 'APIURL', '$http', 'ApiService']
+testimonialsController.$inject = ['$scope', '$state', '$rootScope', 'APIURL', '$http', 'ApiService']
 
 
 
-function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) {
+function testimonialsController($scope, $state, $rootScope, APIURL, $http, ApiService) {
 
     $scope.pagingSize = 5;
 
@@ -26,12 +26,13 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
 
     $scope.totalItems = [];
 
-    if($state.current.name == 'blogs') {
-        ApiService.hm_blogs().then(function(res){
+
+    if($state.current.name == 'testimonials') {
+        ApiService.hm_testimonials().then(function(res){
             $scope.totalItems = res.data;
         });
-    } else if($state.current.name == 'edit_blog') {
-        ApiService.hm_get_blog($state.params.id).then(function(res){
+    } else if($state.current.name == 'edit_testimonial') {
+        ApiService.hm_get_testimonial($state.params.id).then(function(res){
             $scope.form_data = res.data;
         });
     } 
@@ -42,11 +43,11 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
         frm.$setDirty();
     	if(frm.$valid){
 
-    		ApiService.hm_save_blog($scope.form_data).then(function(res){
+    		ApiService.hm_save_testimonial($scope.form_data).then(function(res){
 
     			ApiService.notification(res.msg, 'success');
 
-    			$state.go('blogs');
+    			$state.go('testimonials');
 
     		});
 
@@ -88,7 +89,7 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
 
     		ApiService.notification(res.msg, 'success');
 
-    		ApiService.hm_blogs().then(function(res){
+    		ApiService.hm_testimonials().then(function(res){
 
 		    	$scope.totalItems = res.data;
 
@@ -102,11 +103,11 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
 
     $scope.change_status = function(st, id){
 
-    	ApiService.hm_change_blog_status(st, id).then(function(res){
+    	ApiService.hm_change_testimonial_status(st, id).then(function(res){
 
     		ApiService.notification(res.msg, 'success');
 
-    		ApiService.hm_blogs().then(function(res){
+    		ApiService.hm_testimonials().then(function(res){
 
 		    	$scope.totalItems = res.data;
 

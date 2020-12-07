@@ -60,10 +60,35 @@ body{
 	padding: 0;
 	font-family: 'pt_sansregular';
 	font-size: 14px;
-	color: #ffffff;
 	height: 100%;
 	-webkit-font-smoothing: antialiased;
 	background-color: #ffffff;
+}
+.cp{
+	cursor: pointer;
+}
+.inactive_dt{
+	background: #ccc;
+	color: red;
+	border-radius: 50%;
+	width:30px;
+	height: 30px;
+	font-size: 20px !important;
+	padding: 5px;
+	text-align: center;
+}
+.active_dt{
+	background: #ccc;
+	color: green;
+	border-radius: 50%;
+	width:30px;
+	height: 30px;
+	font-size: 20px !important;
+	padding: 5px;
+	text-align: center;
+}
+.submitted .ng-invalid{
+	border: 1px solid red;
 }
 *, *:before, *:after {box-sizing:  border-box !important;}
 *:focus {

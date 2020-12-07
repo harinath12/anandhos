@@ -1,14 +1,14 @@
 angular.module('app')
 
-        .controller('blogsController', blogsController);
+        .controller('galleryController', galleryController);
 
 
 
-blogsController.$inject = ['$scope', '$state', '$rootScope', 'APIURL', '$http', 'ApiService']
+galleryController.$inject = ['$scope', '$state', '$rootScope', 'APIURL', '$http', 'ApiService']
 
 
 
-function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) {
+function galleryController($scope, $state, $rootScope, APIURL, $http, ApiService) {
 
     $scope.pagingSize = 5;
 
@@ -26,15 +26,20 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
 
     $scope.totalItems = [];
 
-    if($state.current.name == 'blogs') {
-        ApiService.hm_blogs().then(function(res){
+    if($state.current.name == 'gallery') {
+        ApiService.hm_gallery().then(function(res){
             $scope.totalItems = res.data;
         });
-    } else if($state.current.name == 'edit_blog') {
-        ApiService.hm_get_blog($state.params.id).then(function(res){
+    } else if($state.current.name == 'edit_gallery') {
+        ApiService.hm_get_gallery($state.params.id).then(function(res){
             $scope.form_data = res.data;
         });
     } 
+
+    $scope.category = [];
+    ApiService.hm_category().then(function(res){
+        $scope.category = res.data;
+    });
 
     $scope.save = function(frm){
 
@@ -42,11 +47,11 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
         frm.$setDirty();
     	if(frm.$valid){
 
-    		ApiService.hm_save_blog($scope.form_data).then(function(res){
+    		ApiService.hm_save_gallery($scope.form_data).then(function(res){
 
     			ApiService.notification(res.msg, 'success');
 
-    			$state.go('blogs');
+    			$state.go('gallery');
 
     		});
 
@@ -88,7 +93,7 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
 
     		ApiService.notification(res.msg, 'success');
 
-    		ApiService.hm_blogs().then(function(res){
+    		ApiService.hm_gallery().then(function(res){
 
 		    	$scope.totalItems = res.data;
 
@@ -102,11 +107,11 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
 
     $scope.change_status = function(st, id){
 
-    	ApiService.hm_change_blog_status(st, id).then(function(res){
+    	ApiService.hm_change_gallery_status(st, id).then(function(res){
 
     		ApiService.notification(res.msg, 'success');
 
-    		ApiService.hm_blogs().then(function(res){
+    		ApiService.hm_gallery().then(function(res){
 
 		    	$scope.totalItems = res.data;
 

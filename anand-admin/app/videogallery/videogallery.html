@@ -1,6 +1,6 @@
 <div class="content-header">
   {{currentStateDetails.label}} 
-  <a href="#" ui-sref="add_blog" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New</a>
+  <a href="#" ui-sref="add_videogallery" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New</a>
 </div>
 
 <div class="content">
@@ -9,8 +9,7 @@
       <tr>
         <th>S.No</th>
         <th>Title</th>
-        <th>Description</th>
-        <th>Blog date</th>
+        <th>URL</th>
         <th>Image</th>
         <th>Status</th>
         <th class="text-center">Action</th>
@@ -20,8 +19,7 @@
       <tr ng-repeat="item in totalItems">
         <td>{{$index+1}}</td>
         <td>{{item.title}}</td>
-        <td>{{item.content | shortContent: 200}}</td>
-        <td>{{item.created_on}}</td>
+        <td>{{item.url}}</td>
         <td><img class="thumb-img" src="{{item.image ? 'api/uploads/'+item.image : 'images/thumb-img.png'}}"></td>
         <td ng-if="item.status == 0">
               <i ng-click="change_status(1, item.id);" class="inactive_dt cp fa fa-times"></i>
@@ -29,9 +27,8 @@
             <td ng-if="item.status == 1">
               <i ng-click="change_status(0, item.id);" class="active_dt cp fa fa-check"></i>
             </td>
-        
         <td class="text-center">
-          <a href="#" ui-sref="edit_blog({id: item.id})" class="action-btn" type="button"><span class="fa fa-edit"></span></a>
+          <a href="#" ui-sref="edit_videogallery({id: item.id})" class="action-btn" type="button"><span class="fa fa-edit"></span></a>
           <a href="#" ng-click="$event.preventDefault();delete(item.id);" class="action-btn" type="button"><span class="fa fa-trash"></span></a>
         </td>
       </tr>
@@ -47,10 +44,10 @@
       <div class="modal-header clearfix ">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
         </button>
-        <h4 class="p-b-5"><span class="semi-bold">Delete</span> Blog</h4>
+        <h4 class="p-b-5"><span class="semi-bold">Delete</span> Video</h4>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete this Blog?</p>
+        <p>Are you sure you want to delete this Video?</p>
       </div>
       <div class="modal-footer">
         <button ng-click="delete2()" id="add-app" type="button" class="btn btn-primary  btn-cons">Ok</button>

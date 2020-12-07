@@ -1,6 +1,6 @@
 <?php
 
-$array = array('config', 'common', 'blogs');
+$array = array('config', 'common', 'blogs', 'upload', 'testimonial', 'gallery', 'videogallery', 'category');
 
 
 foreach ($array as $key => $value) {
@@ -21,7 +21,6 @@ function hm_login(){
 	$res = get_row("select * from users where (username = '$username' or email = '$username') and password = '$password'");
 
 	if(isset($res['id'])){
-		$res['profile'] = get_all_meta('users', $res['id']);
 		return array('status' => 'Success', 'data' => $res);
 	} else {
 		return array('status' => 'Error', 'msg' => 'Invalid Credentials');

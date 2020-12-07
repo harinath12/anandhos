@@ -51,7 +51,7 @@ function loginController($scope, $state, $rootScope, APIURL, $http, ApiService) 
         });
     } else if(!!$scope.user){
         $rootScope.loggedInUserInfo = JSON.parse(localStorage.getItem('anandadmin'));
-        $state.go('dashboard');
+        $state.go('blogs');
     }
     
     $scope.show_preview_noti = function(flag){
@@ -67,7 +67,7 @@ function loginController($scope, $state, $rootScope, APIURL, $http, ApiService) 
                 $rootScope.loggedInUserInfo = response.data;
                 localStorage.setItem('anandadmin', JSON.stringify(response.data));
                 $rootScope.$broadcast('user_logged_in', response.data);
-                $state.go('dashboard');
+                $state.go('blogs');
             } else {
                 //$scope.error = response.data.msg;
                 ApiService.notification(response.msg, 'error');

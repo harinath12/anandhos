@@ -2,10 +2,11 @@
 <div class="sidebar">
   <nav class="sidebar-nav">
     <ul class="nav">
-      <li><a href="listing.html">Table Page</a></li>
-      <li><a href="form.html">Form Page</a></li>
-      <li><a href="#">Gallery</a></li>
-      <li><a href="#">Programs</a></li>
+      <li><a ng-class="{active: currentStateDetails.base == 'blog'}" ui-sref="blogs">Blogs</a></li>
+      <li><a ng-class="{active: currentStateDetails.base == 'gallery'}" ui-sref="gallery">Gallery</a></li>
+      <li><a ng-class="{active: currentStateDetails.base == 'videogallery'}" ui-sref="videogallery">Video Gallery</a></li>
+      <li><a ng-class="{active: currentStateDetails.base == 'testimonials'}" ui-sref="testimonials">Testimonial</a></li>
+      <li><a ng-class="{active: currentStateDetails.base == 'category'}" ui-sref="category">Category</a></li>
     </ul>
   </nav>
 </div>

@@ -1,6 +1,6 @@
 <div class="content-header">
   {{currentStateDetails.label}} 
-  <a href="#" ui-sref="add_blog" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New</a>
+  <a href="#" ui-sref="add_gallery" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New</a>
 </div>
 
 <div class="content">
@@ -9,8 +9,7 @@
       <tr>
         <th>S.No</th>
         <th>Title</th>
-        <th>Description</th>
-        <th>Blog date</th>
+        <th>Catgeoy</th>
         <th>Image</th>
         <th>Status</th>
         <th class="text-center">Action</th>
@@ -20,8 +19,7 @@
       <tr ng-repeat="item in totalItems">
         <td>{{$index+1}}</td>
         <td>{{item.title}}</td>
-        <td>{{item.content | shortContent: 200}}</td>
-        <td>{{item.created_on}}</td>
+        <td>{{item.category}}</td>
         <td><img class="thumb-img" src="{{item.image ? 'api/uploads/'+item.image : 'images/thumb-img.png'}}"></td>
         <td ng-if="item.status == 0">
               <i ng-click="change_status(1, item.id);" class="inactive_dt cp fa fa-times"></i>
@@ -29,9 +27,8 @@
             <td ng-if="item.status == 1">
               <i ng-click="change_status(0, item.id);" class="active_dt cp fa fa-check"></i>
             </td>
-        
         <td class="text-center">
-          <a href="#" ui-sref="edit_blog({id: item.id})" class="action-btn" type="button"><span class="fa fa-edit"></span></a>
+          <a href="#" ui-sref="edit_gallery({id: item.id})" class="action-btn" type="button"><span class="fa fa-edit"></span></a>
           <a href="#" ng-click="$event.preventDefault();delete(item.id);" class="action-btn" type="button"><span class="fa fa-trash"></span></a>
         </td>
       </tr>

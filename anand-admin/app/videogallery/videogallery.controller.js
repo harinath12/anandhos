@@ -1,14 +1,14 @@
 angular.module('app')
 
-        .controller('blogsController', blogsController);
+        .controller('videogalleryController', videogalleryController);
 
 
 
-blogsController.$inject = ['$scope', '$state', '$rootScope', 'APIURL', '$http', 'ApiService']
+videogalleryController.$inject = ['$scope', '$state', '$rootScope', 'APIURL', '$http', 'ApiService']
 
 
 
-function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) {
+function videogalleryController($scope, $state, $rootScope, APIURL, $http, ApiService) {
 
     $scope.pagingSize = 5;
 
@@ -26,12 +26,12 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
 
     $scope.totalItems = [];
 
-    if($state.current.name == 'blogs') {
-        ApiService.hm_blogs().then(function(res){
+    if($state.current.name == 'videogallery') {
+        ApiService.hm_videogallery().then(function(res){
             $scope.totalItems = res.data;
         });
-    } else if($state.current.name == 'edit_blog') {
-        ApiService.hm_get_blog($state.params.id).then(function(res){
+    } else if($state.current.name == 'edit_videogallery') {
+        ApiService.hm_get_videogallery($state.params.id).then(function(res){
             $scope.form_data = res.data;
         });
     } 
@@ -42,11 +42,11 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
         frm.$setDirty();
     	if(frm.$valid){
 
-    		ApiService.hm_save_blog($scope.form_data).then(function(res){
+    		ApiService.hm_save_videogallery($scope.form_data).then(function(res){
 
     			ApiService.notification(res.msg, 'success');
 
-    			$state.go('blogs');
+    			$state.go('videogallery');
 
     		});
 
@@ -82,13 +82,13 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
 
     $scope.delete2 = function(id){
 
-    	ApiService.hm_delete_blog($scope.pageInfo.actionId).then(function(res){
+    	ApiService.hm_delete_videogallery($scope.pageInfo.actionId).then(function(res){
 
     		$('#deleteAppModal').modal('hide');
 
     		ApiService.notification(res.msg, 'success');
 
-    		ApiService.hm_blogs().then(function(res){
+    		ApiService.hm_videogallery().then(function(res){
 
 		    	$scope.totalItems = res.data;
 
@@ -102,11 +102,11 @@ function blogsController($scope, $state, $rootScope, APIURL, $http, ApiService) 
 
     $scope.change_status = function(st, id){
 
-    	ApiService.hm_change_blog_status(st, id).then(function(res){
+    	ApiService.hm_change_videogallery_status(st, id).then(function(res){
 
     		ApiService.notification(res.msg, 'success');
 
-    		ApiService.hm_blogs().then(function(res){
+    		ApiService.hm_videogallery().then(function(res){
 
 		    	$scope.totalItems = res.data;
 

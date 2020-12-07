@@ -24,11 +24,10 @@ function categoryController($scope, $state, $rootScope, APIURL, $http, ApiServic
     	$scope.totalItems = res.data;
     });
 
-    $scope.save_cat = function(frm){
+    $scope.save = function(frm){
     	$scope.pageInfo.submitted = true;
     	if(frm.$valid){
     		ApiService.hm_save_category($scope.cat_form_data).then(function(res){
-    			$('#addNewAppModal').modal('hide');
     			ApiService.notification(res.msg, 'success');
     			ApiService.hm_category().then(function(res){
 			    	$scope.totalItems = res.data;
@@ -40,17 +39,16 @@ function categoryController($scope, $state, $rootScope, APIURL, $http, ApiServic
     	}
     };
 
-    $scope.edit_cat = function(data){
+    $scope.edit = function(data){
     	$scope.cat_form_data = data;
-    	$('#addNewAppModal').modal('show');
     };
 
-    $scope.delete_cat = function(data){
+    $scope.delete = function(data){
     	$scope.pageInfo.actionId = data;
     	$('#deleteAppModal').modal('show');
     };
 
-    $scope.delete_cat2 = function(id){
+    $scope.delete2 = function(id){
     	ApiService.hm_delete_category($scope.pageInfo.actionId).then(function(res){
     		$('#deleteAppModal').modal('hide');
     		ApiService.notification(res.msg, 'success');
@@ -60,8 +58,8 @@ function categoryController($scope, $state, $rootScope, APIURL, $http, ApiServic
     	});
     };
 
-    $scope.change_status_cat = function(st, id){
-    	ApiService.hm_change_status_cat(st, id).then(function(res){
+    $scope.change_status = function(st, id){
+    	ApiService.hm_change_category_status(st, id).then(function(res){
     		ApiService.notification(res.msg, 'success');
     		ApiService.hm_category().then(function(res){
 		    	$scope.totalItems = res.data;

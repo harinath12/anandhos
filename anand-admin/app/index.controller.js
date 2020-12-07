@@ -61,8 +61,22 @@ function indexController($rootScope, $scope, $state, ApiService, $window, $timeo
         $state.go('login');
     }
 
-    $scope.tinymceOptions = {
-    plugins: 'link image code',
-    toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
-  };
+    $scope.ckeditorOptions = {
+
+      textInput: 'pretext',
+
+      options: {
+
+        language: 'en',
+
+        allowedContent: true,
+
+        entities: false
+
+      }
+      
+
+    };
+
+    
 }

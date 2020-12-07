@@ -1,6 +1,6 @@
 var hmapp = angular.module('app', 
-    ['ui.router', 'ui.bootstrap'])
-.value('APIURL', 'http://localhost/Boopathi/howmatch/admin/api/?action=');
+    ['ui.router', 'ui.bootstrap', 'ckeditor'])
+.value('APIURL', 'http://localhost/Hari/anandhos/anandhos/anand-admin/api/?action=');
 //.value('APIURL', 'http://erpsoftwareavt.com/admin/api/?action=');
 hmapp
 .config(routes);
@@ -23,8 +23,9 @@ function routes($stateProvider, $urlRouterProvider) {
         },
         
         {
-            name: 'dashboard',
+            name: 'home',
             label: 'Home',
+            base: 'home',
             auth: true,
             restricted:false,
             url: '/home',
@@ -34,6 +35,7 @@ function routes($stateProvider, $urlRouterProvider) {
         {
             name: 'blogs',
             label: 'Blogs',
+            base: 'blog',
             auth: true,
             restricted:false,
             url: '/blogs',
@@ -43,6 +45,7 @@ function routes($stateProvider, $urlRouterProvider) {
         {
             name: 'add_blog',
             label: 'Add Blog',
+            base: 'blog',
             auth: true,
             restricted:false,
             url: '/blog/add',
@@ -52,12 +55,113 @@ function routes($stateProvider, $urlRouterProvider) {
         {
             name: 'edit_blog',
             label: 'Edit Blog',
+            base: 'blog',
             auth: true,
             restricted:false,
             url: '/blog/edit/:id',
             templateUrl: 'app/blogs/form.html',
             controller: 'blogsController'
         },
+        {
+            name: 'testimonials',
+            label: 'Testimonials',
+            base: 'testimonial',
+            auth: true,
+            restricted:false,
+            url: '/testimonials',
+            templateUrl: 'app/testimonials/testimonials.html',
+            controller: 'testimonialsController'
+        },
+        {
+            name: 'add_testimonial',
+            label: 'Add Testimonial',
+            base: 'testimonial',
+            auth: true,
+            restricted:false,
+            url: '/testimonials/add',
+            templateUrl: 'app/testimonials/form.html',
+            controller: 'testimonialsController'
+        },
+        {
+            name: 'edit_testimonial',
+            label: 'Edit Testimonial',
+            base: 'testimonial',
+            auth: true,
+            restricted:false,
+            url: '/testimonials/edit/:id',
+            templateUrl: 'app/testimonials/form.html',
+            controller: 'testimonialsController'
+        },
+        {
+            name: 'gallery',
+            label: 'Gallery',
+            base: 'gallery',
+            auth: true,
+            restricted:false,
+            url: '/gallery',
+            templateUrl: 'app/gallery/gallery.html',
+            controller: 'galleryController'
+        },
+        {
+            name: 'add_gallery',
+            label: 'Add Gallery',
+            base: 'gallery',
+            auth: true,
+            restricted:false,
+            url: '/gallery/add',
+            templateUrl: 'app/gallery/form.html',
+            controller: 'galleryController'
+        },
+        {
+            name: 'edit_gallery',
+            label: 'Edit Gallery',
+            base: 'gallery',
+            auth: true,
+            restricted:false,
+            url: '/gallery/edit/:id',
+            templateUrl: 'app/gallery/form.html',
+            controller: 'galleryController'
+        },
+        {
+            name: 'videogallery',
+            label: 'Video Gallery',
+            base: 'videogallery',
+            auth: true,
+            restricted:false,
+            url: '/videogallery',
+            templateUrl: 'app/videogallery/videogallery.html',
+            controller: 'videogalleryController'
+        },
+        {
+            name: 'add_videogallery',
+            label: 'Add Video Gallery',
+            base: 'videogallery',
+            auth: true,
+            restricted:false,
+            url: '/videogallery/add',
+            templateUrl: 'app/videogallery/form.html',
+            controller: 'videogalleryController'
+        },
+        {
+            name: 'edit_videogallery',
+            label: 'Edit Video Gallery',
+            base: 'videogallery',
+            auth: true,
+            restricted:false,
+            url: '/videogallery/edit/:id',
+            templateUrl: 'app/videogallery/form.html',
+            controller: 'videogalleryController'
+        },
+        {
+            name: 'category',
+            label: 'Category',
+            base: 'category',
+            auth: true,
+            restricted:false,
+            url: '/category',
+            templateUrl: 'app/category/category.html',
+            controller: 'categoryController'
+        }
     ]
 
     angular.forEach(states, function (state) {
@@ -301,9 +405,14 @@ hmapp.filter('secure_url', ['$sce', function($sce){
 
 hmapp.filter('shortContent', function () {
     return function (item, maxLength) {
+        var div = document.createElement('div');
+        div.innerHTML = item;
+        item = div.innerText;
         if((item || "").length < maxLength){
             return item;
         } else {
+            var div = document.createElement('div');
+            div.innerHTML = item;
             var trimmedString = (item || "").substr(0, maxLength);
             return trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" ")))+'...';
         }

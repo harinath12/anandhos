@@ -9,7 +9,7 @@ function hm_get_blog(){
 	return array('status' => 'Success', 'data' => $res);
 }
 
-function hm_save_blogs(){
+function hm_save_blog(){
 	$data = $_POST;
 	if(isset($data['id'])){
 		$id = $data['id'];
@@ -24,7 +24,7 @@ function hm_save_blogs(){
 	}
 }
 
-function hm_delete_blogs(){
+function hm_delete_blog(){
 	$data = $_POST['delete'];
 	foreach ($data as $key => $value) {
 
@@ -37,7 +37,7 @@ function hm_delete_blogs(){
 
 
 
-function hm_change_blogs_status(){
+function hm_change_blog_status(){
 
 	update('blogs', array('status' => $_POST['status']), array('id' => $_POST['id']));
 

@@ -3,7 +3,7 @@
 $hostname		=	"localhost";
 $username		=	"root";
 $password	    =	"";
-$database		=	"howmatch_new";
+$database		=	"anandhos";
 
 /*$hostname		=	"localhost";
 $username		=	"howmatch_dev";
