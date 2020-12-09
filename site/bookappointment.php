@@ -1,3 +1,51 @@
+<?php
+if(isset($_POST['submit'])){
+	$subject = 'Book an appointment';
+	$to = "ranand@yahoo.com";
+				
+	$headers = "From:".strip_tags($_POST['name'])."<".$_POST['email']."> \r\n";
+	$headers .= "Reply-To:".strip_tags($_POST['email'])."\r\n";
+	$headers .= "BCC:  \r\n";
+	$headers .= "MIME-Version: 1.0\r\n";
+	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+	$message = '<html><body>';		
+		$message .='<table style="background-color:#eeeeee;" border="0" cellpadding="20" cellspacing="0" height="100%" width="100%">
+		<tbody>
+		<tr>
+		<td width="20%">Speciality</td>
+		<td width="80%">'.$_POST['speciality'].'</td>
+		</tr>
+		<tr>
+		<td width="20%">Name</td>
+		<td width="80%">'.$_POST['name'].'</td>
+		</tr>
+		<tr>
+		<td width="20%">Email</td>
+		<td width="80%">'.$_POST['email'].'</td>
+		</tr>
+		<tr>
+		<td width="20%">Mobile Number</td>
+		<td width="80%">'.$_POST['mobile'].'</td>
+		</tr>
+		<td width="20%">Message</td>
+		<td width="80%">'.$_POST['message'].'</td>
+		</tr>
+		</tbody>
+		</table>
+		<body>
+		</html>';
+
+	$mail	=	@mail($to, $subject, $message, $headers);
+	if($mail==true)
+	{
+		header("Location: bookappointment.php?st=1");
+	}
+	else
+	{
+		header("Location: bookappointment.php?st=2");
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,86 +78,7 @@
     
 		<!--Page Body Wrapper-->
         <div class="container-fluid page-body-wrapper">
-        	<!--Header Start-->
-        	<header>
-				<div class="head-top">
-					<div class="container">
-						<div class="row">
-							<div class="col-8 col-sm-8 col-md-8 col-lg-7 pr-0">
-								<div class="widget">
-			                        <div class="call">
-			                            <a href="tel:04224213163">
-			                                <i class="fa fa-phone-volume"></i>
-			                                <div class="left">
-			                                    0422 4213163
-			                                </div>
-			                            </a>
-			                        </div>
-			                        <div class="mail">
-			                            <a href="mailto:ranand@yahoo.com">
-			                                <i class="far fa-envelope"></i>
-			                                <div class="left">
-			                                    ranand@yahoo.com
-			                                </div>
-			                            </a>
-			                        </div>
-			                    </div>
-			                </div>
-			                <div class="col-4 col-sm-4 col-md-4 col-lg-5 text-right">
-		                        <ul class="top-social">
-									<li><a href="https://www.facebook.com/anandhospitalscbe" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-									<li><a href="https://www.youtube.com/channel/UC_-9m9-DvWxbz96j2yjaxrw" target="_blank"><i class="fab fa-youtube"></i></a></li>
-									<li><a href="https://www.instagram.com/anandhospitals2019" target="_blank"><i class="fab fa-instagram"></i></a></li>
-								</ul>
-				            </div>
-						</div>
-					</div>
-				</div>
-					
-				<div class="head-bottom">
-					<div class="container">
-						<div class="row">
-							<div class="col-lg-2 col-md-4 col-12 hleft">
-	        					<div class="head-logo">
-		    						<a href="index.html" class="logo"><img class="img-fluid" src="images/anandlogo.png"></a>
-		    					</div>
-	        				</div>
-	        				<div class="col-lg-10 col-md-8 col-12 hright">
-	        					<div class="head-nav">
-		        					<nav class="menu">
-										<ul class="justify-content-between">
-											<!--<li><a href="index.html">Home</a></li>-->
-											<li class="cr-dropdown"><a href="#">About Us</a>
-												<ul class="cr-dropdown-menu">
-													<li><a href="hospital.html">About Hospital</a></li>
-													<li><a href="dranand.html">Dr. Anand</a></li>
-													<li><a href="drvishnupriya.html">Dr. Vishnupriya Anand</a></li>
-												</ul>
-											</li>
-											<li><a href="facilities.html">Facilities</a></li>
-											<li><a href="procedures.html">Procedures</a></li>
-											<li><a href="womenscare.html">Women's Care</a></li>
-											<li class="cr-dropdown"><a href="#">Patient resources</a>
-												<ul class="cr-dropdown-menu">
-													<li><a href="videogallery.html">Videos</a></li>
-													<li><a href="blog.html">Blog</a></li>
-												</ul>
-											</li>
-											<li><a href="gallery.html">Gallery</a></li>
-											<li><a href="testimonials.html">Testimonials</a></li>
-											<li><a href="contact.html">Contact</a></li>
-										</ul>
-									</nav><!-- //Main naviagtion -->
-									<h4 class="menu-text d-inline-block d-lg-none">Menu</h4>
-									<!-- Mobile Menu -->
-									<div class="mobile-menu hidden-lg hidden-xlg hidden-xx hidden-sp"></div><!-- //Mobile Menu -->
-		        				</div>
-	        				</div>
-						</div>
-					</div>
-				</div>
-        	</header>
-        	<!--Header End--> 
+        	<?php include 'header.php'?>
         	
         	<!--Main Panel-->
         	<div class="main-panel">
@@ -135,11 +104,16 @@
 		        		<div class="container">
         					<div class="row">
         						<div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-				                   <form class="form-horizontal">
+        							<?php if(isset($_GET['st']) && $_GET['st'] == 1){?>
+		        						<p style="color: green;">Your enquiry has been sent successfully. We will reach you out shortly. </p>
+		        					<?php } elseif(isset($_GET['st']) && $_GET['st'] == 1){?>
+		        						<p style="color: red;">Error while submit enquiry. Try again later</p>
+		        					<?php }?>
+				                   <form method="post" class="form-horizontal">
 										<div class="form-group row">
 											<label class="control-label col-sm-4">Choose Speciality</label>
 											<div class="col-sm-8">
-												<select class="form-control" name="nice-select">
+												<select name="speciality" class="form-control">
 													<option>ENT</option>
 													<option>WOMEN'S CARE</option>
 												</select>
@@ -148,30 +122,30 @@
 										<div class="form-group row">
 											<label class="control-label col-sm-4">Name</label>
 											<div class="col-sm-8">
-												<input class="form-control" type="text">
+												<input name="name" class="form-control" type="text">
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="control-label col-sm-4">Email</label>
 											<div class="col-sm-8">
-												<input class="form-control" type="text">
+												<input name="email" class="form-control" type="text">
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="control-label col-sm-4">Contact Number</label>
 											<div class="col-sm-8">
-												<input class="form-control" type="text">
+												<input name="mobile" class="form-control" type="text">
 											</div>
 										</div>
 										<div class="form-group row">
 											<label class="control-label col-sm-4">Message</label>
 											<div class="col-sm-8">
-												<textarea class="form-control"></textarea>
+												<textarea name="message" class="form-control"></textarea>
 											</div>
 										</div>
 										<div class="form-group row">
 											<div class="col-sm-8 offset-sm-4">
-												<button type="submit" class="btn btn--sm">Submit Now</button>
+												<button name="submit" type="submit" class="btn btn--sm">Submit Now</button>
 											</div>
 										</div>
 									</form>
@@ -188,71 +162,7 @@
         		</div>
         		<!--Main Content Wrapper End-->
         		
-        		<!--Footer-->
-        		<footer>
-        			<div class="foot-top pt-40 pb-30">
-	        			<div class="container">
-	        				<div class="row">
-	        					<div class="col-md-12 col-lg-4">
-									<div class="foot-content">
-									<img src="images/anandlogo-alt.png">
-									<p class="mt-20">Anand Hospitals aims to provide the highest quality of care expertise and treatment to one and all who are seeking solution to problems related to Ear, Nose & Throat along with Women’s Health.</p>
-									</div>
-									<h5 class="mb-10 text-white">Follow Us On</h5>
-	        						<ul class="foot-social">
-										<li><a href="https://www.facebook.com/anandhospitalscbe" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-										<li><a href="https://www.youtube.com/channel/UC_-9m9-DvWxbz96j2yjaxrw" target="_blank"><i class="fab fa-youtube"></i></a></li>
-										<li><a href="https://www.instagram.com/anandhospitals2019" target="_blank"><i class="fab fa-instagram"></i></a></li>
-									</ul>
-	        					</div>
-	        					<div class="col-md-12 col-lg-4">
-									<h5>Reach Us</h5>
-									<ul class="foot-info">
-										<li class="foot-addr">
-										<p>ANAND HOSPITALS, <br>No 39-42, Sarojini Road, New Sidhapudur <br>Coimbatore, Tamil Nadu, India 641044</p></li>
-										<li class="foot-tele">
-											<small>Call Us</small><br>
-											<p>0422 4213163</p>
-										</li>
-										<li class="foot-mail">
-											<small>Write Us</small><br>
-											<a href="mailto:ranand@yahoo.com">ranand@yahoo.com</a>
-										</li>
-									</ul>
-	        					</div>
-	        					<div class="col-md-12 col-lg-4">
-									<h5>Quick Links</h5>
-									<ul class="foot-nav">
-										<li><a href="index.html">Home</a></li>
-										<li><a href="hospital.html">About Hospital</a></li>
-										<li><a href="dranand.html">Dr. Anand</a></li>
-										<li><a href="drvishnupriya.html">Dr. Vishnupriya Anand</a></li>
-										<li><a href="facilities.html">Facilities</a></li>
-										<li><a href="procedures.html">Procedures</a></li>
-									</ul>
-									<ul class="foot-nav">
-										<li><a href="womenscare.html">Women's Care</a></li>
-										<li><a href="videogallery.html">Video Gallery</a></li>
-										<li><a href="blog.html">Blog</a></li>
-										<li><a href="gallery.html">Gallery</a></li>
-										<li><a href="testimonials.html">Testimonials</a></li>
-										<li><a href="contact.html">Contact</a></li>
-									</ul>
-	        					</div>
-	        				</div>
-	        			</div>
-        			</div>
-        			<div class="copyright">
-	        			<div class="container">
-	        				<div class="row">
-	        					<div class="col-md-12">
-									<p>Copyright &copy; <script>document.write(new Date().getFullYear())</script>. Anand Hospitals. All Rights Reserved.</p>
-									<p><a href="http://www.cortexmarketing.in/" target="_blank">Powered By: Cortex Media Marketing Pvt Ltd</a></p>
-								</div>
-	        				</div>
-	        			</div>
-	        		</div>
-        		</footer>
+        		<?php include 'footer.php'?>
         	</div><!--Main Panel-->
         </div><!--Page Body Wrapper-->
         

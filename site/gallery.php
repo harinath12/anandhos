@@ -1,3 +1,6 @@
+<?php
+include 'config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,86 +32,7 @@
     
 		<!--Page Body Wrapper-->
         <div class="container-fluid page-body-wrapper">
-        	<!--Header Start-->
-        	<header>
-				<div class="head-top">
-					<div class="container">
-						<div class="row">
-							<div class="col-8 col-sm-8 col-md-8 col-lg-7 pr-0">
-								<div class="widget">
-			                        <div class="call">
-			                            <a href="tel:04224213163">
-			                                <i class="fa fa-phone-volume"></i>
-			                                <div class="left">
-			                                    0422 4213163
-			                                </div>
-			                            </a>
-			                        </div>
-			                        <div class="mail">
-			                            <a href="mailto:ranand@yahoo.com">
-			                                <i class="far fa-envelope"></i>
-			                                <div class="left">
-			                                    ranand@yahoo.com
-			                                </div>
-			                            </a>
-			                        </div>
-			                    </div>
-			                </div>
-			                <div class="col-4 col-sm-4 col-md-4 col-lg-5 text-right">
-		                        <ul class="top-social">
-									<li><a href="https://www.facebook.com/anandhospitalscbe" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-									<li><a href="https://www.youtube.com/channel/UC_-9m9-DvWxbz96j2yjaxrw" target="_blank"><i class="fab fa-youtube"></i></a></li>
-									<li><a href="https://www.instagram.com/anandhospitals2019" target="_blank"><i class="fab fa-instagram"></i></a></li>
-								</ul>
-				            </div>
-						</div>
-					</div>
-				</div>
-					
-				<div class="head-bottom">
-					<div class="container">
-						<div class="row">
-							<div class="col-lg-2 col-md-4 col-12 hleft">
-	        					<div class="head-logo">
-		    						<a href="index.html" class="logo"><img class="img-fluid" src="images/anandlogo.png"></a>
-		    					</div>
-	        				</div>
-	        				<div class="col-lg-10 col-md-8 col-12 hright">
-	        					<div class="head-nav">
-		        					<nav class="menu">
-										<ul class="justify-content-between">
-											<!--<li><a href="index.html">Home</a></li>-->
-											<li class="cr-dropdown"><a href="#">About Us</a>
-												<ul class="cr-dropdown-menu">
-													<li><a href="hospital.html">About Hospital</a></li>
-													<li><a href="dranand.html">Dr. Anand</a></li>
-													<li><a href="drvishnupriya.html">Dr. Vishnupriya Anand</a></li>
-												</ul>
-											</li>
-											<li><a href="facilities.html">Facilities</a></li>
-											<li><a href="procedures.html">Procedures</a></li>
-											<li><a href="womenscare.html">Women's Care</a></li>
-											<li class="cr-dropdown"><a href="#">Patient resources</a>
-												<ul class="cr-dropdown-menu">
-													<li><a href="videogallery.html">Videos</a></li>
-													<li><a href="blog.html">Blog</a></li>
-												</ul>
-											</li>
-											<li class="active"><a href="gallery.html">Gallery</a></li>
-											<li><a href="testimonials.html">Testimonials</a></li>
-											<li><a href="contact.html">Contact</a></li>
-										</ul>
-									</nav><!-- //Main naviagtion -->
-									<h4 class="menu-text d-inline-block d-lg-none">Menu</h4>
-									<!-- Mobile Menu -->
-									<div class="mobile-menu hidden-lg hidden-xlg hidden-xx hidden-sp"></div><!-- //Mobile Menu -->
-		        				</div>
-	        				</div>
-						</div>
-					</div>
-				</div>
-        	</header>
-        	<!--Header End--> 
+        	<?php include 'header.php'?>
         	
         	<!--Main Panel-->
         	<div class="main-panel">
@@ -133,50 +57,23 @@
 	        		<div class="main-content gal-pg bg-1">
 		        		<div class="container">
         					<div class="row">
-        						<div class="col-lg-4 col-md-6 col-sm-6">
-				                    <!--<div class="galbox-1">
-			                            <div class="galbox-1-img">
-			                                <img src="images/gallery/gal-img.jpg" alt="" class="img-fluid">
-			                                <div class="gal-icon-wrap">
-			                                   <a href="infrastructure-photos.html" title="View Album"><i class="fa fa-eye"></i></a>
-			                                </div>
-			                            </div>
-			                            <div class="galbox-1-content">
-			                               <h3 class="galbox-1-title"><a href="infrastructure-photos.html">Hospital Entrance</a></h3>
-			                            </div>
-			                        </div>-->
-			                        <div class="mygalbox-wrap">
-										<div class="mygalbox">
-			                                <img src="images/gallery/gal-img.jpg" alt="" class="img-fluid">
-			                                <!--<a href="galleryphotos.html"><i class="fab fa-youtube"></i></a>-->
-			                            </div>
-			                            <div class="mygalbox-title">
-			                            	<h5><a href="galleryphotos.html">Infrastructure</a></h5>
-			                            </div>
-		                            </div>
-				                </div>
+        						<?php $res = get_results('select * from category where status = 1 order by id desc');
+                                    foreach ($res as $key => $value) {
+
+                                    	$res1 = get_results('select * from gallery where category = "'.$value['name'].'" and status = 1 order by id desc');
+                                    	if(count($res1)){
+                                    ?>
 				                <div class="col-lg-4 col-md-6 col-sm-6">
 				                    <div class="mygalbox-wrap">
 										<div class="mygalbox">
-			                                <img src="images/gallery/gal-img.jpg" alt="" class="img-fluid">
-			                                <!--<a href="galleryphotos.html"><i class="fab fa-youtube"></i></a>-->
+			                                <img src="<?= $res1[0]['image'] ? '../anand-admin/api/uploads/'.$res1[0]['image'] : 'images/gallery/gal-img.jpg'?>" alt="" class="img-fluid">
 			                            </div>
 			                            <div class="mygalbox-title">
-			                            	<h5><a href="galleryphotos.html">News &amp; Events</a></h5>
+			                            	<h5><a href="galleryphotos.php?id=<?= $value['id']?>"><?= $value['name']?></a></h5>
 			                            </div>
 		                            </div>
 				                </div>
-				                <div class="col-lg-4 col-md-6 col-sm-6">
-				                    <div class="mygalbox-wrap">
-										<div class="mygalbox">
-			                                <img src="images/gallery/gal-img.jpg" alt="" class="img-fluid">
-			                                <!--<a href="galleryphotos.html"><i class="fab fa-youtube"></i></a>-->
-			                            </div>
-			                            <div class="mygalbox-title">
-			                            	<h5><a href="galleryphotos.html">Grand Opening</a></h5>
-			                            </div>
-		                            </div>
-				                </div>
+				            	<?php }}?>
         					</div>
 		        		</div>
 	        		</div>
@@ -185,71 +82,7 @@
         		</div>
         		<!--Main Content Wrapper End-->
         		
-        		<!--Footer-->
-        		<footer>
-        			<div class="foot-top pt-40 pb-30">
-	        			<div class="container">
-	        				<div class="row">
-	        					<div class="col-md-12 col-lg-4">
-									<div class="foot-content">
-									<img src="images/anandlogo-alt.png">
-									<p class="mt-20">Anand Hospitals aims to provide the highest quality of care expertise and treatment to one and all who are seeking solution to problems related to Ear, Nose & Throat along with Women’s Health.</p>
-									</div>
-									<h5 class="mb-10 text-white">Follow Us On</h5>
-	        						<ul class="foot-social">
-										<li><a href="https://www.facebook.com/anandhospitalscbe" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-										<li><a href="https://www.youtube.com/channel/UC_-9m9-DvWxbz96j2yjaxrw" target="_blank"><i class="fab fa-youtube"></i></a></li>
-										<li><a href="https://www.instagram.com/anandhospitals2019" target="_blank"><i class="fab fa-instagram"></i></a></li>
-									</ul>
-	        					</div>
-	        					<div class="col-md-12 col-lg-4">
-									<h5>Reach Us</h5>
-									<ul class="foot-info">
-										<li class="foot-addr">
-										<p>ANAND HOSPITALS, <br>No 39-42, Sarojini Road, New Sidhapudur <br>Coimbatore, Tamil Nadu, India 641044</p></li>
-										<li class="foot-tele">
-											<small>Call Us</small><br>
-											<p>0422 4213163</p>
-										</li>
-										<li class="foot-mail">
-											<small>Write Us</small><br>
-											<a href="mailto:ranand@yahoo.com">ranand@yahoo.com</a>
-										</li>
-									</ul>
-	        					</div>
-	        					<div class="col-md-12 col-lg-4">
-									<h5>Quick Links</h5>
-									<ul class="foot-nav">
-										<li><a href="index.html">Home</a></li>
-										<li><a href="hospital.html">About Hospital</a></li>
-										<li><a href="dranand.html">Dr. Anand</a></li>
-										<li><a href="drvishnupriya.html">Dr. Vishnupriya Anand</a></li>
-										<li><a href="facilities.html">Facilities</a></li>
-										<li><a href="procedures.html">Procedures</a></li>
-									</ul>
-									<ul class="foot-nav">
-										<li><a href="womenscare.html">Women's Care</a></li>
-										<li><a href="videogallery.html">Video Gallery</a></li>
-										<li><a href="blog.html">Blog</a></li>
-										<li><a href="gallery.html">Gallery</a></li>
-										<li><a href="testimonials.html">Testimonials</a></li>
-										<li><a href="contact.html">Contact</a></li>
-									</ul>
-	        					</div>
-	        				</div>
-	        			</div>
-        			</div>
-        			<div class="copyright">
-	        			<div class="container">
-	        				<div class="row">
-	        					<div class="col-md-12">
-									<p>Copyright &copy; <script>document.write(new Date().getFullYear())</script>. Anand Hospitals. All Rights Reserved.</p>
-									<p><a href="http://www.cortexmarketing.in/" target="_blank">Powered By: Cortex Media Marketing Pvt Ltd</a></p>
-								</div>
-	        				</div>
-	        			</div>
-	        		</div>
-        		</footer>
+        		<?php include 'footer.php'?>
         	</div><!--Main Panel-->
         </div><!--Page Body Wrapper-->
         
